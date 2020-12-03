@@ -63,9 +63,7 @@ def aoc2020_3_a(input: list):
     y_coord = 1
     for i in range(len(input)-1):
         line = input[y_coord]
-        while x_coord >= len(line):
-            line += input[y_coord]
-        if line[x_coord] == "#":
+        if line[x_coord%len(line)] == "#":
             tree_count += 1
         x_coord += 3
         y_coord += 1
@@ -82,9 +80,7 @@ def aoc2020_3_b(input: list, slopes: list):
         (x_coord, y_coord) = (x, y)
         for i in range(len(input) - 1):
             line = input[y_coord]
-            while x_coord >= len(line):
-                line += input[y_coord]
-            if line[x_coord] == "#":
+            if line[x_coord%len(line)] == "#":
                 tree_count += 1
             x_coord += x
             y_coord += y
