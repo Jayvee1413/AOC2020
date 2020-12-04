@@ -1,0 +1,5 @@
+byr:1972
+hgt:169cm
+hcl:#888785
+cid:75 iyr:2015 eyr:2021 ecl:oth
+pid:7889059161
