@@ -89,6 +89,176 @@ def aoc2020_3_b(input: list, slopes: list):
         product *= tree_count
     return product
 
+def aoc2020_4_a(input: list):
+
+    valid_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+    count = 0
+    passport_fields = []
+    valid_passports = []
+    for line in input:
+        if line == "":
+            if (len(passport_fields) == 8 and "cid" in passport_fields):
+                count += 1
+                valid_passports.append(passport_fields)
+            elif len(passport_fields) == 7 and "cid" not in passport_fields:
+                valid = 1
+                for passport_field in passport_fields:
+                    if passport_field not in valid_fields:
+                        valid = 0
+                if valid == 1:
+                    count += 1
+                    valid_passports.append(passport_fields)
+            passport_fields = []
+            continue
+        else:
+            values = line.split(" ")
+            for value in values:
+                (key, v) = value.split(":")
+                passport_fields.append(key)
+    for valid_passport in valid_passports:
+        print(valid_passport)
+    return count
+
+def aoc2020_4_b_func(passport_fields):
+    valid_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid"]
+    valid = 1
+    for passport_field in passport_fields:
+        if passport_field["key"] not in valid_fields:
+            valid = 0
+            break
+        else:
+            if passport_field["key"] == "byr":
+                value = passport_field["value"]
+                if value.isnumeric():
+                    value = int(value)
+                    if not (value >= 1920 and value <= 2002):
+                        valid = 0
+                        print("invalid byr")
+                        break
+            elif passport_field["key"] == "iyr":
+                value = passport_field["value"]
+                if value.isnumeric():
+                    value = int(value)
+                    if not (value >= 2010 and value <= 2020):
+                        valid = 0
+                        print("invalid iyr")
+                        break
+            elif passport_field["key"] == "eyr":
+                value = passport_field["value"]
+                if value.isnumeric():
+                    value = int(value)
+                    if not (value >= 2020 and value <= 2030):
+                        valid = 0
+                        print("invalid eyr")
+                        break
+            elif passport_field["key"] == "hgt":
+                value = passport_field["value"]
+                if not ("in" in value or "cm" in value):
+                    valid = 0
+                    print("invalid hgt")
+                    break
+                elif "in" in value:
+                    hgt = value.split("i")[0]
+                    if not (hgt.isnumeric() and int(hgt) >= 59 and int(hgt) <= 76):
+                        valid = 0
+                        print("invalid hgt")
+                        break
+                elif "cm" in value:
+                    hgt = value.split("c")[0]
+                    if not (hgt.isnumeric() and int(hgt) >= 150 and int(hgt) <= 193):
+                        valid = 0
+                        print("invalid hgt")
+                        break
+                else:
+                    valid = 0
+                    break
+            elif passport_field["key"] == "hcl":
+                value = passport_field["value"]
+                if value.startswith("#"):
+                    hex_value = value.split("#")[1]
+                    if len(hex_value) != 6:
+                        valid = 0
+                        print("invalid hcl")
+                        break
+                    else:
+                        for c in hex_value:
+                            if c not in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e",
+                                         "f"]:
+                                valid = 0
+                                print("invalid hcl")
+                                break
+                else:
+                    valid = 0
+                    print("invalid hcl")
+                    break
+            elif passport_field["key"] == "ecl":
+                value = passport_field["value"]
+                if value not in ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]:
+                    valid = 0
+                    print("invalid ecl")
+                    break
+            elif passport_field["key"] == "pid":
+                value = passport_field["value"]
+                if not value.isnumeric():
+                    valid = 0
+                    print("invalid pid")
+                    break
+                else:
+                    if len(value) != 9:
+                        valid = 0
+                        print("invalid pid")
+                        break
+    print("VALUUUD: ", valid)
+    return valid
+
+
+def aoc2020_4_b(input: list):
+
+    count_2 = 0
+    passport_fields = []
+    valid_passports = []
+    invalid_passports = []
+    for line in input:
+        if line == "":
+            count_2 += 1
+            if len(passport_fields) == 7:
+
+                if "cid" in [x["key"] for x in passport_fields]:
+                    valid = 0
+                    print("invalid insufficient fields")
+                else:
+
+                    valid = aoc2020_4_b_func(passport_fields)
+                if valid == 1:
+                    valid_passports.append(passport_fields)
+                else:
+                    invalid_passports.append(passport_fields)
+            elif len(passport_fields) == 8:
+                valid = aoc2020_4_b_func(passport_fields)
+                print("VALIUDDDDDAAA: ", valid)
+                if valid == 1:
+                    valid_passports.append(passport_fields)
+                else:
+                    invalid_passports.append(passport_fields)
+            else:
+                invalid_passports.append(passport_fields)
+
+            passport_fields = []
+            continue
+        else:
+            values = line.split(" ")
+            for value in values:
+                print(value)
+                (key, v) = value.split(":")
+                passport_fields.append({"key": key, "value": v})
+    count = 1
+    for passport in valid_passports:
+        print(f"Valid {count}...")
+        for field in passport:
+            print(f"{field['key']}: {field['value']}")
+        count += 1
+        print("")
+    return len(valid_passports)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -98,7 +268,8 @@ if __name__ == '__main__':
     # print(aoc2020_2_a(read_file("day2.txt")))
     # print(aoc2020_2_b(read_file("day2.txt")))
     # print(aoc2020_3_a(read_file("day3.txt")))
-    print(aoc2020_3_b(read_file("day3.txt"), read_file("day3_slopes.txt")))
+    # print(aoc2020_3_b(read_file("day3.txt"), read_file("day3_slopes.txt")))
+    print(aoc2020_4_b(read_file("day4.txt")))
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
