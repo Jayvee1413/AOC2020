@@ -2,17 +2,17 @@ import re
 
 def validate_byr(byr):
     byr = int(byr)
-    if not(byr >= 1920 and byr <= 2002):
+    if not(1920 <= byr <= 2002):
         raise Exception
 
 
 def validate_iyr(iyr):
-    if not(iyr >= 2010 and iyr <= 2020):
+    if not(2010 <= iyr <= 2020):
         raise Exception
 
 
 def validate_eyr(eyr):
-    if not(eyr >= 2020 and eyr <= 2030):
+    if not(2020 <= eyr <= 2030):
         raise Exception
 
 

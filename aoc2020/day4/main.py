@@ -28,13 +28,13 @@ def aoc2020_4_a(input: list):
     count = 0
     for data in input:
         try:
-            byr = re.compile(r"(?<=byr:)([#]*)(\w+)(?=\s|$)").search(data)[0]
-            iyr = re.compile(r"(?<=iyr:)([#]*)(\w+)(?=\s|$)").search(data)[0]
-            eyr = re.compile(r"(?<=eyr:)([#]*)(\w+)(?=\s|$)").search(data)[0]
-            hgt = re.compile(r"(?<=hgt:)([#]*)(\w+)(?=\s|$)").search(data)[0]
-            hcl = re.compile(r"(?<=hcl:)([#]*)(\w+)(?=\s|$)").search(data)[0]
-            ecl = re.compile(r"(?<=ecl:)([#]*)(\w+)(?=\s|$)").search(data)[0]
-            pid = re.compile(r"(?<=pid:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=byr:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=iyr:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=eyr:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=hgt:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=hcl:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=ecl:)([#]*)(\w+)(?=\s|$)").search(data)[0]
+            re.compile(r"(?<=pid:)([#]*)(\w+)(?=\s|$)").search(data)[0]
             count += 1
         except Exception as e:
             pass
@@ -63,15 +63,11 @@ def aoc2020_4_b(input: list):
             valid_data.append(data)
         except Exception as e:
             pass
-    c = 0
-    for data in valid_data:
-        c += 1
     return count
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print(aoc2020_4_a(convert_input_to_batches(read_file_as_whole_string("day4.txt"))))
     print(aoc2020_4_b(convert_input_to_batches(read_file_as_whole_string("day4.txt"))))
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
