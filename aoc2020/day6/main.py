@@ -58,6 +58,7 @@ def aoc2020_6_b(input: list):
             count += len(group_set)
     return count
 
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print(aoc2020_6_b(convert_input_to_batches(read_file_as_whole_string("day6.txt"))))

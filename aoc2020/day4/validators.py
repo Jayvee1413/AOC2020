@@ -1,18 +1,19 @@
 import re
 
+
 def validate_byr(byr):
     byr = int(byr)
-    if not(1920 <= byr <= 2002):
+    if not (1920 <= byr <= 2002):
         raise Exception
 
 
 def validate_iyr(iyr):
-    if not(2010 <= iyr <= 2020):
+    if not (2010 <= iyr <= 2020):
         raise Exception
 
 
 def validate_eyr(eyr):
-    if not(2020 <= eyr <= 2030):
+    if not (2020 <= eyr <= 2030):
         raise Exception
 
 
@@ -21,11 +22,11 @@ def validate_hgt(hgt):
     in_match = re.compile(r"^\d+(?=in$)").search(hgt)
     if cm_match:
         cm_hgt = int(cm_match[0])
-        if not(150 <= cm_hgt <= 193):
+        if not (150 <= cm_hgt <= 193):
             raise Exception
     elif in_match:
         in_hgt = int(in_match[0])
-        if not(59 <= in_hgt <= 76):
+        if not (59 <= in_hgt <= 76):
             raise Exception
     else:
         raise Exception

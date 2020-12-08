@@ -24,6 +24,7 @@ def convert_input_to_batches(input: str):
     sp = re.split('\n\s*\n', input)
     return sp
 
+
 def aoc2020_4_a(input: list):
     count = 0
     for data in input:
@@ -39,6 +40,7 @@ def aoc2020_4_a(input: list):
         except Exception as e:
             pass
     return count
+
 
 def aoc2020_4_b(input: list):
     count = 0
@@ -64,6 +66,7 @@ def aoc2020_4_b(input: list):
         except Exception as e:
             pass
     return count
+
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
